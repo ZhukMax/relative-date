@@ -2,8 +2,8 @@
 trait RelativeDateTrait
 {
 	public function __construct()
-  {
-    $this->minute = 60;
+    {
+        $this->minute = 60;
 		$this->hour = 60 * $this->minute;
 		$this->day = 24 * $this->hour;
 		$this->week = 7 * $this->day;
@@ -41,7 +41,7 @@ trait RelativeDateTrait
 			'over a year ago',
 			'years ago'
 		);
-  }
+    }
 
 	public function relativeDate($date, $lang)
 	{
