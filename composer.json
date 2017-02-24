@@ -1,0 +1,18 @@
+{
+  "name": "zhukmax/relative-date",
+  "description": "Relative date php-helper.",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Zhuk Max",
+      "email": "zhukmax@ya.ru"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0"
+  },
+  "require-dev": {},
+  "autoload": {
+    "classmap": ["src"]
+  }
+}
