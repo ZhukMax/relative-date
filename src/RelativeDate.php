@@ -86,13 +86,17 @@ class RelativeDate
      */
     public static function get($date, $lang = [])
     {
-        if (is_null( self::$instance )) {
+        if (is_null(self::$instance)) {
             self::$instance = new self();
         }
 
         return self::$instance->date($date, self::$instance->getLang($lang));
     }
 
+    /**
+     * @param $lang
+     * @return array
+     */
     private function getLang($lang){
         if (!is_array($lang)) {
             $lang = parse_ini_file($lang . '.ini');
@@ -105,21 +109,21 @@ class RelativeDate
     }
 
     /**
-     * @param $date
-     * @param $lang
-     * @return mixed|string
+     * @param int $date
+     * @param array $lang
+     * @return string
      */
 	private function date($date, $lang)
 	{
-		if (!$date) {
-		    return $lang[0];
-        }
-		$timeDifference = time() - (int)$date;
-		$output = $lang[0];
+		$outKey = 0;
+	    $timeDifference = time() - (int)$date;
 
 		foreach ($this->formats as $key => $val) {
-			if ($timeDifference < (int)$val) break;
-			else $outKey = $key;
+			if ($timeDifference < (int)$val) {
+			    break;
+            } else {
+			    $outKey = $key;
+            }
 		}
 
 		switch ($outKey) {
@@ -141,6 +145,8 @@ class RelativeDate
 			case 13:
 				$output = round($timeDifference / $this->year) ." ". $lang[$outKey];
 				break;
+            default:
+                $output = $lang[$outKey];
 		}
 
 		return $output;

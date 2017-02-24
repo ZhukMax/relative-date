@@ -12,23 +12,14 @@ composer require zhukmax/relative-date
 ```php
 <?php
 
-$ru_Ru = array(
-	'',
-	'',
-	'',
-	'час назад',
-	'часов назад',
-	'вчера',
-	'дней назад',
-	'неделю назад',
-	'недель назад',
-	'месяц назад',
-	'месяц(a/ев) назад',
-	'год назад',
-	'более года тому назад',
-	'лет тому назад'
-);
-echo $relativeDate = RelativeDate::get(mktime(0, 0, 0, 2, 1, 2015), $ru_Ru);
+echo $relativeDate = RelativeDate::get(mktime(0, 0, 0, 2, 1, 2015), 'ru_Ru');
 
 echo $relativeDate2 = RelativeDate::get(mktime(0, 0, 0, 2, 1, 2015));
 ```
+
+You can use your language array.
+
+## Licence
+
+The Apache License Version 2.0. Please see [License File](license) for more information.
+
