@@ -80,7 +80,7 @@ class RelativeDate
      * Get instance of RelativeDate class,
      * return result of function date.
      *
-     * @param int $date
+     * @param $date
      * @param array $lang
      * @return mixed|string
      */
@@ -89,8 +89,33 @@ class RelativeDate
         if (is_null(self::$instance)) {
             self::$instance = new self();
         }
+        $date = self::$instance->getDate($date);
 
-        return self::$instance->date($date, self::$instance->getLang($lang));
+        if ($date) {
+            $lang = self::$instance->getLang($lang);
+            return self::$instance->date($date, $lang);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param $date
+     * @return bool|int
+     */
+    private function getDate($date)
+    {
+        if (is_string($date)) {
+            if (($timestamp = strtotime($date)) !== false) {
+                $timeDifference = time() - $timestamp;
+            } else {
+                return false;
+            }
+        } else {
+            $timeDifference = time() - (int)$date;
+        }
+
+        return $timeDifference;
     }
 
     /**
@@ -98,7 +123,7 @@ class RelativeDate
      * @return array
      */
     private function getLang($lang){
-        if (!is_array($lang)) {
+        if (!is_array($lang) && is_file($lang . '.ini')) {
             $lang = parse_ini_file($lang . '.ini');
         }
         if (count($lang) != count($this->en_US)) {
@@ -116,40 +141,38 @@ class RelativeDate
 	private function date($date, $lang)
 	{
 		$outKey = 0;
-	    $timeDifference = time() - (int)$date;
-
 		foreach ($this->formats as $key => $val) {
-			if ($timeDifference < (int)$val) {
+			if ($date < (int)$val) {
 			    break;
             } else {
 			    $outKey = $key;
             }
 		}
+		$phrase = $lang[$outKey];
 
 		switch ($outKey) {
 			case 2:
-				$output = round($timeDifference / $this->minute) ." ". $lang[$outKey];
+				$output = round($date / $this->minute) ." ". $phrase;
 				break;
 			case 4:
-				$output = round($timeDifference / $this->hour) ." ". $lang[$outKey];
+				$output = round($date / $this->hour) ." ". $phrase;
 				break;
 			case 6:
-				$output = round($timeDifference / $this->day) ." ". $lang[$outKey];
+				$output = round($date / $this->day) ." ". $phrase;
 				break;
 			case 8:
-				$output = round($timeDifference / $this->week) ." ". $lang[$outKey];
+				$output = round($date / $this->week) ." ". $phrase;
 				break;
 			case 10:
-				$output = round($timeDifference / $this->month) ." ". $lang[$outKey];
+				$output = round($date / $this->month) ." ". $phrase;
 				break;
 			case 13:
-				$output = round($timeDifference / $this->year) ." ". $lang[$outKey];
+				$output = round($date / $this->year) ." ". $phrase;
 				break;
             default:
-                $output = $lang[$outKey];
+                $output = $phrase;
 		}
 
 		return $output;
 	}
 }
-?>

@@ -12,12 +12,17 @@ composer require zhukmax/relative-date
 ```php
 <?php
 
-echo $relativeDate = RelativeDate::get(mktime(0, 0, 0, 2, 1, 2015), 'ru_Ru');
+// Russian date
+$relativeDate = RelativeDate::get(mktime(0, 0, 0, 2, 1, 2015), 'ru_Ru');
 
-echo $relativeDate2 = RelativeDate::get(mktime(0, 0, 0, 2, 1, 2015));
+// English is default
+$relativeDate = RelativeDate::get(mktime(0, 0, 0, 2, 1, 2015));
+
+// Use string date
+$relativeDate = RelativeDate::get('10 September 2000');
+
+// You can use your language array.
 ```
-
-You can use your language array.
 
 ## Licence
 
