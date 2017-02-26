@@ -43,7 +43,7 @@ class RelativeDate
     /**
      * @var array
      */
-	private $en_US;
+	private $en;
 
     /**
      * RelativeDate constructor.
@@ -73,7 +73,7 @@ class RelativeDate
 			$this->year * 1.2,
 			$this->year * 2
 		);
-		$this->en_US = parse_ini_file('en_US.ini');
+		$this->en = parse_ini_file('en_US.ini');
     }
 
     /**
@@ -126,8 +126,8 @@ class RelativeDate
         if (!is_array($lang) && is_file($lang . '.ini')) {
             $lang = parse_ini_file($lang . '.ini');
         }
-        if (count($lang) != count($this->en_US)) {
-            $lang = $this->en_US;
+        if (count($lang) != count($this->en)) {
+            $lang = $this->en;
         }
 
         return $lang;
