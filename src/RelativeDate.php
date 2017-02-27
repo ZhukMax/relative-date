@@ -148,30 +148,30 @@ class RelativeDate
 			    $outKey = $key;
             }
 		}
+		$n = "";
 		$phrase = $lang[$outKey];
 
 		switch ($outKey) {
 			case 2:
-				$output = round($date / $this->minute) ." ". $phrase;
+				$n = round($date / $this->minute);
 				break;
 			case 4:
-				$output = round($date / $this->hour) ." ". $phrase;
+                $n = round($date / $this->hour);
 				break;
 			case 6:
-				$output = round($date / $this->day) ." ". $phrase;
+                $n = round($date / $this->day);
 				break;
 			case 8:
-				$output = round($date / $this->week) ." ". $phrase;
+                $n = round($date / $this->week);
 				break;
 			case 10:
-				$output = round($date / $this->month) ." ". $phrase;
+                $n = round($date / $this->month);
 				break;
 			case 13:
-				$output = round($date / $this->year) ." ". $phrase;
+                $n = round($date / $this->year);
 				break;
-            default:
-                $output = $phrase;
 		}
+        $output = str_replace("{n}", $n, $phrase);
 
 		return $output;
 	}
